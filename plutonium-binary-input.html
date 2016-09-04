@@ -1,0 +1,139 @@
+<!--
+@license
+Copyright (c) 2015 Cherubits Organization Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://cherubits.github.io/LICENSE.txt
+The complete set of authors may be found at http://cherubits.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://cherubits.github.io/CONTRIBUTORS.txt
+Code distributed by Cherubits Organization as part of the project is also
+subject to an additional IP rights grant found at http://cherubits.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<!--<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">-->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<!--<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">-->
+<link rel="import" href="plutonium-hexa-input.html">
+<!--
+`plutonium-binary-input`
+Element for handling embbedded input.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="plutonium-binary-input">
+    <template>
+        <style inlcude="iron-flex">
+            :host {
+                display: inline-block;
+                @apply(--layout-horizontal);
+                @apply(--layout-wrap);
+            }
+
+
+        </style>
+        <paper-input-container attr-for-value="address-value">
+            <label>[[addressLabel]]</label>
+            <input id="addressInput" is="iron-input" bind-value="{{address}}" class="paper-input-input" maxlength="[[addressLength]]" size="[[addressLength]]" aria-label="First 3 digits of social security number">
+        </paper-input-container>
+        <paper-input-container attr-for-value="length-value">
+            <label>[[lengthLabel]]</label>
+            <input id="lengthInput" is="iron-input" bind-value="{{length}}" class="paper-input-input" maxlength="2" size="2" aria-label="First 3 digits of social security number">
+        </paper-input-container>
+        <paper-input-container attr-for-value="data-value">
+            <label>[[addressLabel]]</label>
+            <plutonium-hexa-input data$="{{data}}" length="{{length}}" value="{{value}}" address-length="{{addressLength}}" class="paper-input-input"></plutonium-hexa-input>
+        </paper-input-container>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'plutonium-binary-input',
+            behaviors: [
+                Polymer.IronValidatableBehavior
+            ],
+            properties: {
+                value: {
+                    notify: true,
+                    type: String
+                },
+                valueLabel: {
+                    notify: true,
+                    type: String,
+                    value: 'Value'
+                },
+                address: {
+                    notify: true,
+                    type: String
+                },
+                addressLabel: {
+                    notify: true,
+                    type: String,
+                    value: 'Address'
+                },
+                length: {
+                    notify: true,
+                    type: Number
+                },
+                lengthLabel: {
+                    notify: true,
+                    type: String,
+                    value: 'Length'
+                },
+                fieldLength: {
+                    notify: true,
+                    type: Number,
+                    value: 2
+                },
+                addressLength: {
+                    notify: true,
+                    type: Number,
+                    value: 8
+                },
+//                validator: {
+//                    type: String,
+//                    value: 'plutonium-hexa-validator'
+//                }
+            },
+//            observers: [
+//                '_lengthChanged(length)',
+//                '_dataChanged(data.*)'
+//            ],
+//            attached: function () {
+//                if (this.data) {
+//                    this.length = this.data.length;
+//                }
+//            },
+//            _dataChanged: function (changeRecord) {
+//                if (changeRecord.path === 'items.splices') {
+//                    console.log('handle added or removed items ...', changeRecord);
+//                    this.value = '';
+//                    changeRecord.base.forEach(function (currentValue, index, arr) {
+//                        this.value += currentValue.trim();
+//                    }, this);
+//                } else {
+//                    console.log('handle property changes to individual items ...', changeRecord);
+//                    this.value = '';
+//                    changeRecord.base.forEach(function (currentValue, index, arr) {
+//                        this.value += currentValue.trim();
+//                    }, this);
+//                }
+//                this.length = this.data.length;
+//            },
+//            _lengthChanged: function (newValue) {
+//                var n = parseInt(newValue);
+//                if (isNaN(n))
+//                    return;
+//                else {
+//                    var data = [];
+//                    for (var i = 0; i < n; i++) {
+//                        if (this.data.length - 1 > i)
+//                            data.push(this.data[i]);
+//                        else
+//                            data.push('');
+//                    }
+//                    this.data = data;
+//                }
+//            }
+        });
+    </script>
+</dom-module>
